@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exam Allocation System</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: var(--text-dark);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 16px;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    html {
+      height: 100%;
+      overflow: hidden;
+    }
+    
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    .landing-container {
+      max-width: 1200px;
+      text-align: center;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      height: calc(100vh - 10px);
+      justify-content: space-between;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+    
+    .hero-section {
+      padding: 0;
+      position: relative;
+      margin-bottom: 0;
+      margin-top: 10vh;
+    }
+    
+    .hero-badge {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 0.6rem 1.5rem;
+      border-radius: 50px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      color: var(--primary-dark);
+      font-weight: 600;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+      opacity: 0;
+      animation: slideDown 0.6s ease forwards;
+      transform: scale(1);
+      transition: transform 0.3s ease;
+    }
+    
+    .hero-badge:hover {
+      transform: scale(1.05);
+    }
+    
+    .hero-badge i {
+      color: var(--secondary);
+      font-size: 1.3rem;
+    }
+    
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 0;
+      opacity: 0;
+      animation: fadeIn 0.8s ease forwards;
+      animation-delay: 0.3s;
+      line-height: 1.1;
+      background: linear-gradient(45deg, var(--primary-dark), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+    }
+    
+    h1 .emoji {
+      font-size: 3.2rem;
+      -webkit-text-fill-color: initial;
+      text-fill-color: initial;
+    }
+    
+    h1 span {
+      color: var(--secondary);
+      position: relative;
+      display: inline-block;
+    }
+    
+    h1 span::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, rgba(245, 0, 87, 0.1), rgba(245, 0, 87, 0.5));
+      border-radius: 5px;
+    }
+    
+    .welcome-text {
+      margin: 0 auto;
+      font-size: 1.1rem;
+      color: var(--text-dark);
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+      animation-delay: 0.5s;
+      max-width: 700px;
+      line-height: 1.4;
+      font-weight: 400;
+    }
+    
+    .shape {
+      position: absolute;
+      z-index: -1;
+      opacity: 0.6;
+    }
+    
+    .shape-1 {
+      top: 20px;
+      left: 10%;
+      width: 80px;
+      height: 80px;
+      background: var(--primary);
+      border-radius: 50%;
+      opacity: 0.4;
+      animation: float 8s ease-in-out infinite;
+    }
+    
+    .shape-2 {
+      bottom: 50px;
+      right: 10%;
+      width: 100px;
+      height: 100px;
+      background: var(--secondary);
+      border-radius: 50%;
+      opacity: 0.4;
+      animation: float 10s ease-in-out infinite reverse;
+    }
+    
+    .shape-3 {
+      top: 40%;
+      left: 5%;
+      width: 60px;
+      height: 60px;
+      background: var(--warning);
+      border-radius: 50%;
+      opacity: 0.4;
+      animation: float 7s ease-in-out infinite 1s;
+    }
+    
+    .shape-4 {
+      top: 30%;
+      right: 5%;
+      width: 70px;
+      height: 70px;
+      background: var(--success);
+      border-radius: 50%;
+      opacity: 0.4;
+      animation: float 9s ease-in-out infinite 0.5s;
+    }
+    
+    .shape-5 {
+      bottom: 20%;
+      left: 20%;
+      width: 50px;
+      height: 50px;
+      background: var(--primary);
+      mix-blend-mode: multiply;
+      border-radius: 30%;
+      opacity: 0.4;
+      animation: float 11s ease-in-out infinite 0.7s;
+    }
+    
+    .shape-6 {
+      top: 10%;
+      right: 20%;
+      width: 40px;
+      height: 40px;
+      background: var(--secondary);
+      mix-blend-mode: multiply;
+      border-radius: 30%;
+      opacity: 0.4;
+      animation: float 6s ease-in-out infinite 0.9s;
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0) scale(1) rotate(0deg); }
+      50% { transform: translateY(-25px) scale(1.1) rotate(5deg); }
+      100% { transform: translateY(0) scale(1) rotate(0deg); }
+    }
+    
+    .page-content {
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+    
+    .role-cards {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin: 0;
+      width: 100%;
+      perspective: 1000px;
+    }
+    
+    .role-card {
+      background: white;
+      width: 32.5%;
+      padding: 1.5rem;
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      transition: transform 0.5s, box-shadow 0.5s;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    
+    .role-card:nth-child(1) { animation-delay: 0.3s; }
+    .role-card:nth-child(2) { animation-delay: 0.5s; }
+    .role-card:nth-child(3) { animation-delay: 0.7s; }
+    
+    .role-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(to right, var(--primary), var(--primary-dark));
+    }
+    
+    .role-card:nth-child(2)::before {
+      background: linear-gradient(to right, var(--secondary), #d5004d);
+    }
+    
+    .role-card:nth-child(3)::before {
+      background: linear-gradient(to right, var(--warning), #e67e22);
+    }
+    
+    .role-card::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, 
+        rgba(255, 255, 255, 0) 0%, 
+        rgba(255, 255, 255, 0.8) 50%, 
+        rgba(255, 255, 255, 0) 100%);
+      animation: shine 3s infinite;
+    }
+    
+    @keyframes shine {
+      0% { transform: translateX(-100%); }
+      60%, 100% { transform: translateX(100%); }
+    }
+    
+    .role-card:hover {
+      transform: translateY(-20px) rotateY(5deg);
+      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.15);
+    }
+    
+    .role-icon-container {
+      position: relative;
+      width: 50px;
+      height: 50px;
+      margin: 0 auto 0.8rem auto;
+      background: var(--bg-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+    
+    .role-card:nth-child(1) .role-icon-container {
+      background: rgba(74, 107, 239, 0.1);
+    }
+    
+    .role-card:nth-child(2) .role-icon-container {
+      background: rgba(245, 0, 87, 0.1);
+    }
+    
+    .role-card:nth-child(3) .role-icon-container {
+      background: rgba(243, 156, 18, 0.1);
+    }
+    
+    .role-icon {
+      font-size: 1.5rem;
+      color: var(--primary);
+      position: relative;
+      z-index: 2;
+    }
+    
+    .role-card:nth-child(2) .role-icon {
+      color: var(--secondary);
+    }
+    
+    .role-card:nth-child(3) .role-icon {
+      color: var(--warning);
+    }
+    
+    .role-icon-container::after {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: -8px;
+      right: -8px;
+      bottom: -8px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, rgba(74, 107, 239, 0.3), rgba(74, 107, 239, 0));
+      z-index: 1;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    .role-card:nth-child(2) .role-icon-container::after {
+      background: linear-gradient(45deg, rgba(245, 0, 87, 0.3), rgba(245, 0, 87, 0));
+    }
+    
+    .role-card:nth-child(3) .role-icon-container::after {
+      background: linear-gradient(45deg, rgba(243, 156, 18, 0.3), rgba(243, 156, 18, 0));
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.7; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    
+    .role-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--text-dark);
+    }
+    
+    .role-description {
+      color: var(--text-light);
+      margin-bottom: 0.5rem;
+      font-size: 0.8rem;
+      line-height: 1.3;
+    }
+    
+    .btn {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      border-radius: 50px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      z-index: -1;
+      transition: width 0.3s ease;
+    }
+    
+    .btn:hover::before {
+      width: 100%;
+    }
+    
+    .btn i {
+      transition: transform 0.3s ease;
+      margin-left: 0.5rem;
+    }
+    
+    .btn:hover i {
+      transform: translateX(6px);
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin: 0.3rem auto 0.7rem auto;
+      max-width: 950px;
+    }
+    
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 0.5rem 0.8rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      opacity: 0;
+      animation: fadeIn 0.5s ease forwards;
+      animation-delay: 1s;
+      transform: scale(1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .feature:hover {
+      transform: translateY(-5px) scale(1.03);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .feature:nth-child(2) { animation-delay: 1.1s; }
+    .feature:nth-child(3) { animation-delay: 1.2s; }
+    .feature:nth-child(4) { animation-delay: 1.3s; }
+    
+    .feature i {
+      color: var(--primary);
+      font-size: 1.2rem;
+      background: rgba(74, 107, 239, 0.1);
+      width: 35px;
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+    
+    .feature:nth-child(2) i { 
+      color: var(--secondary);
+      background: rgba(245, 0, 87, 0.1);
+    }
+    
+    .feature:nth-child(3) i { 
+      color: var(--warning);
+      background: rgba(243, 156, 18, 0.1);
+    }
+    
+    .feature:nth-child(4) i { 
+      color: var(--success);
+      background: rgba(46, 204, 113, 0.1);
+    }
+    
+    .feature span {
+      font-weight: 600;
+      color: var(--text-dark);
+      font-size: 0.9rem;
+    }
+    
+    .stats-section {
+      background: white;
+      border-radius: 15px;
+      padding: 1rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      margin: 0;
+      display: grid;
+      grid-template-rows: repeat(3, 1fr);
+      gap: 0.5rem;
+      position: relative;
+      overflow: hidden;
+      height: 100%;
+    }
+    
+    .stats-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(74, 107, 239, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
+    }
+    
+    .stat-item {
+      text-align: center;
+      padding: 0.5rem;
+      border-radius: 10px;
+      transition: transform 0.3s;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .stat-item:hover {
+      transform: translateY(-5px);
+    }
+    
+    .stat-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.3rem;
+      color: var(--primary);
+    }
+    
+    .stat-item:nth-child(2) .stat-icon {
+      color: var(--secondary);
+    }
+    
+    .stat-item:nth-child(3) .stat-icon {
+      color: var(--warning);
+    }
+    
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+      background: linear-gradient(45deg, var(--primary-dark), var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+    }
+    
+    .stat-item:nth-child(2) .stat-value {
+      background: linear-gradient(45deg, #c70039, var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+    
+    .stat-item:nth-child(3) .stat-value {
+      background: linear-gradient(45deg, #e67e22, var(--warning));
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+    
+    .stat-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    
+    .footer {
+      margin-top: 0.3rem;
+      padding-top: 0.3rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      font-size: 0.7rem;
+      color: var(--text-light);
+    }
+    
+    .footer-links {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .footer-link {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: color 0.3s;
+      position: relative;
+    }
+    
+    .footer-link::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+    
+    .footer-link:hover {
+      color: var(--primary);
+    }
+    
+    .footer-link:hover::after {
+      width: 100%;
+    }
+    
+    @media (max-width: 992px) {
+      body {
+        overflow: auto;
+      }
+      
+      .landing-container {
+        height: auto;
+      }
+      
+      .page-content {
+        grid-template-columns: 1fr;
+      }
+      
+      h1 {
+        font-size: 2.5rem;
+      }
+      
+      h1 .emoji {
+        font-size: 2.7rem;
+      }
+      
+      .welcome-text {
+        font-size: 1.3rem;
+      }
+      
+      .stats-section {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .role-cards {
+        gap: 2rem;
+      }
+      
+      .features {
+        gap: 1.5rem;
+      }
+      
+      .feature {
+        flex: 0 0 calc(50% - 1.5rem);
+      }
+      
+      .footer {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      
+      h1 {
+        font-size: 3rem;
+      }
+      
+      h1 .emoji {
+        font-size: 3.2rem;
+      }
+      
+      .welcome-text {
+        font-size: 1.2rem;
+      }
+    }
+    
+    .stats-container {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin: 1rem auto 4rem auto;
+    }
+    
+    .stat-box {
+      text-align: center;
+    }
+    
+    .stat-box .stat-value {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: #000000 !important;
+      background: none !important;
+      -webkit-background-clip: initial !important;
+      -webkit-text-fill-color: #000000 !important;
+      background-clip: initial !important;
+      text-fill-color: initial !important;
+    }
+    
+    .stat-box .stat-label {
+      font-size: 1rem;
+      color: #000000 !important;
+      font-weight: 600;
+      background: none !important;
+      -webkit-background-clip: initial !important;
+      -webkit-text-fill-color: #000000 !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="container landing-container">
+    <div class="hero-section">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+      <div class="shape shape-4"></div>
+      <div class="shape shape-5"></div>
+      <div class="shape shape-6"></div>
+      
+      <div class="hero-badge">
+        <i class="fas fa-check-circle"></i> Smart Exam Management Solution
+      </div>
+      
+      <div class="stats-container">
+        <div class="stat-box">
+          <div class="stat-value">500+</div>
+          <div class="stat-label">Students Managed</div>
+        </div>
+        
+        <div class="stat-box">
+          <div class="stat-value">50+</div>
+          <div class="stat-label">Exam Halls</div>
+        </div>
+        
+        <div class="stat-box">
+          <div class="stat-value">100%</div>
+          <div class="stat-label">Allocation Accuracy</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="page-content">
+      <div class="role-cards">
+        <div class="role-card">
+          <div>
+            <div class="role-icon-container">
+              <i class="role-icon fas fa-user-graduate"></i>
+            </div>
+            <h2 class="role-title">Student</h2>
+            <p class="role-description">Find your exam seat allocation quickly</p>
+          </div>
+          <a href="/templates/student.html" class="btn">Enter <i class="fas fa-arrow-right"></i></a>
+        </div>
+        
+        <div class="role-card">
+          <div>
+            <div class="role-icon-container">
+              <i class="role-icon fas fa-chalkboard-teacher"></i>
+            </div>
+            <h2 class="role-title">Invigilator</h2>
+            <p class="role-description">Check your exam hall duty assignment</p>
+          </div>
+          <a href="/templates/invigilator.html" class="btn">Enter <i class="fas fa-arrow-right"></i></a>
+        </div>
+        
+        <div class="role-card">
+          <div>
+            <div class="role-icon-container">
+              <i class="role-icon fas fa-cog"></i>
+            </div>
+            <h2 class="role-title">Admin</h2>
+            <p class="role-description">Manage students, halls and allocations</p>
+          </div>
+          <a href="/templates/dashboard.html" class="btn">Enter <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <p>&copy; 2025 Exam Seat Allocation System</p>
+      <div class="footer-links">
+        <a href="#" class="footer-link">Help & Support</a>
+        <a href="#" class="footer-link">Privacy Policy</a>
+        <a href="#" class="footer-link">Terms of Service</a>
+        <a href="#" class="footer-link">Contact Us</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+

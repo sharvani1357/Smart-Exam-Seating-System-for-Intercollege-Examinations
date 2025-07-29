@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invigilator Duty</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .invigilator-container {
+      max-width: 650px;
+    }
+    
+    .lookup-card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      margin: 1.5rem 0;
+      text-align: center;
+      animation: fadeIn 0.6s ease;
+    }
+    
+    .form-group {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group i {
+      position: absolute;
+      left: 15px;
+      top: 17px;
+      color: var(--text-light);
+      font-size: 1.1rem;
+    }
+    
+    form input {
+      padding-left: 45px !important;
+    }
+    
+    .result-card {
+      background: var(--bg-light);
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin-top: 2rem;
+      text-align: center;
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    .duty-info {
+      background: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      margin-top: 1.5rem;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .duty-info i {
+      font-size: 2.5rem;
+      color: var(--secondary);
+      margin-bottom: 0.5rem;
+    }
+    
+    .duty-detail {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    
+    .duty-label {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-bottom: 0.5rem;
+    }
+    
+    .duty-text {
+      color: var(--text-dark);
+      font-size: 1.1rem;
+    }
+    
+    .no-duty {
+      color: var(--text-light);
+      font-weight: 600;
+    }
+    
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+    
+    .back-btn i {
+      transition: transform 0.3s;
+    }
+    
+    .back-btn:hover i {
+      transform: translateX(-5px);
+    }
+    
+    .instructions {
+      margin-top: 1.5rem;
+      text-align: left;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+    
+    .instructions ul {
+      padding-left: 1.5rem;
+    }
+    
+    .instructions li {
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container invigilator-container">
+    <h1><i class="fas fa-chalkboard-teacher"></i> Invigilator Duty</h1>
+    
+    <div class="lookup-card">
+      <form method="POST" action="/invigilator_lookup">
+        <div class="form-group">
+          <i class="fas fa-envelope"></i>
+          <input type="email" name="email" placeholder="Enter your email address" required autocomplete="off" />
+        </div>
+        <button type="submit"><i class="fas fa-search"></i> Check My Duty</button>
+      </form>
+    </div>
+    
+    <div class="result-card" id="resultCard">
+      <h2><i class="fas fa-clipboard-list"></i> Duty Assignment</h2>
+      
+      <!-- Duty section -->
+      <div id="dutySection">
+      
+      </div>
+    </div>
+    
+    <a href="/" class="btn back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const resultCard = document.getElementById('resultCard');
+      const dutySection = document.getElementById('dutySection');
+      const resultText = "{{ result }}";
+      const dutyHall = "{{ duty_hall }}";
+      
+      if (resultText) {
+        resultCard.style.display = 'block';
+        
+        const hasDuty = "{{ has_duty }}" === "True";
+        if (hasDuty) {
+          dutySection.innerHTML = `
+            <div class="duty-info">
+              <i class="fas fa-university"></i>
+              <p class="duty-label">YOU ARE ASSIGNED TO</p>
+              <p class="duty-detail" style="color: #000000; font-weight: 700;">${dutyHall}</p>
+              
+              <div class="instructions">
+                <h3>Instructions:</h3>
+                <ul>
+                  <li>Please arrive 30 minutes before the exam start time.</li>
+                  <li>Report to the exam control room to collect exam materials.</li>
+                  <li>Verify student IDs and seating arrangements.</li>
+                  <li>Contact the exam coordinator for any issues.</li>
+                </ul>
+              </div>
+            </div>
+          `;
+        } else {
+          dutySection.innerHTML = `
+            <div class="duty-info">
+              <i class="fas fa-exclamation-circle"></i>
+              <p class="no-duty" style="color: #e53935;">No duty assigned</p>
+              <p style="color: #000000;">Please contact the exam administrator for more information.</p>
+            </div>
+          `;
+        }
+      }
+    });
+  </script>
+</body>
+</html>

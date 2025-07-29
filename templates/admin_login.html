@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .login-container {
+      max-width: 500px;
+    }
+    
+    .login-card {
+      background: white;
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: var(--shadow);
+      margin: 2rem 0;
+      text-align: center;
+      animation: fadeIn 0.6s ease;
+    }
+    
+    .form-group {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group i {
+      position: absolute;
+      left: 15px;
+      top: 17px;
+      color: var(--text-light);
+      font-size: 1.1rem;
+    }
+    
+    form input {
+      padding-left: 45px !important;
+    }
+    
+    .error-message {
+      color: var(--danger);
+      font-weight: 500;
+      margin-top: 1rem;
+      padding: 0.75rem;
+      background-color: rgba(231, 76, 60, 0.1);
+      border-radius: 8px;
+      display: none;
+    }
+    
+    .login-logo {
+      font-size: 3.5rem;
+      color: var(--warning);
+      margin-bottom: 1.5rem;
+    }
+    
+    .secure-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-top: 1.5rem;
+    }
+    
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+    
+    .back-btn i {
+      transition: transform 0.3s;
+    }
+    
+    .back-btn:hover i {
+      transform: translateX(-5px);
+    }
+  </style>
+</head>
+<body>
+  <div class="container login-container">
+    <h1><i class="fas fa-shield-alt"></i> Admin Login</h1>
+    
+    <div class="login-card">
+      <div class="login-logo">
+        <i class="fas fa-user-shield"></i>
+      </div>
+      
+      <form method="POST" action="/admin_login">
+        <div class="form-group">
+          <i class="fas fa-lock"></i>
+          <input type="password" name="password" placeholder="Enter admin password" required autocomplete="off" />
+        </div>
+        <button type="submit"><i class="fas fa-sign-in-alt"></i> Login</button>
+      </form>
+      
+      <div class="error-message" id="errorMessage">
+        <i class="fas fa-exclamation-triangle"></i> {{ error }}
+      </div>
+      
+      <div class="secure-badge">
+        <i class="fas fa-lock"></i> Secure administrator access
+      </div>
+    </div>
+    
+    <a href="/" class="btn back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
+  </div>
+  
+  <script>
+    // Simple animation for displaying error
+    document.addEventListener('DOMContentLoaded', function() {
+      const errorText = "{{ error }}";
+      if (errorText) {
+        document.getElementById('errorMessage').style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>

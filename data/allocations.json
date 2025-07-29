@@ -1,0 +1,72 @@
+[
+  {
+    "roll": "85",
+    "name": "khushi",
+    "hall": "101 cb",
+    "row": 1,
+    "column": 1
+  },
+  {
+    "roll": "86",
+    "name": "sharvani",
+    "hall": "101 cb",
+    "row": 1,
+    "column": 2
+  },
+  {
+    "roll": "87",
+    "name": "lahari",
+    "hall": "101 cb",
+    "row": 2,
+    "column": 1
+  },
+  {
+    "roll": "88",
+    "name": "kritik",
+    "hall": "101 cb",
+    "row": 2,
+    "column": 2
+  },
+  {
+    "roll": "90",
+    "name": "pranith",
+    "hall": "102cb",
+    "row": 1,
+    "column": 1
+  },
+  {
+    "roll": "91",
+    "name": "rakesh",
+    "hall": "102cb",
+    "row": 1,
+    "column": 2
+  },
+  {
+    "roll": "83",
+    "name": "john",
+    "hall": "102cb",
+    "row": 2,
+    "column": 1
+  },
+  {
+    "roll": "84",
+    "name": "sreeja",
+    "hall": "102cb",
+    "row": 2,
+    "column": 2
+  },
+  {
+    "roll": "28",
+    "name": "jhanavi",
+    "hall": "101 pg",
+    "row": 1,
+    "column": 1
+  },
+  {
+    "roll": "1",
+    "name": "himag",
+    "hall": "101 pg",
+    "row": 1,
+    "column": 2
+  }
+]

@@ -1,0 +1,237 @@
+/* Exam Seat Allocation System - Modern UI */
+
+:root {
+  --primary: #4a6bef;
+  --primary-dark: #2845c7;
+  --secondary: #f50057;
+  --bg-light: #f5f9ff;
+  --bg-dark: #1a2138;
+  --success: #2ecc71;
+  --warning: #f39c12;
+  --danger: #e74c3c;
+  --text-dark: #2d3748;
+  --text-light: #a0aec0;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  color: var(--text-dark);
+  transition: var(--transition);
+}
+
+.container {
+  width: 90%;
+  max-width: 800px;
+  background: white;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  text-align: center;
+  transform: translateY(0);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--primary);
+  position: relative;
+  display: inline-block;
+}
+
+h1::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: var(--secondary);
+  border-radius: 2px;
+}
+
+h2 {
+  font-size: 1.75rem;
+  margin: 1.5rem 0 1rem 0;
+  color: var(--primary-dark);
+}
+
+form {
+  margin: 1.5rem 0;
+}
+
+form input,
+form button {
+  width: 100%;
+  padding: 14px;
+  margin: 0.75rem 0;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+form input {
+  background-color: var(--bg-light);
+}
+
+form input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(74, 107, 239, 0.2);
+}
+
+button {
+  background: var(--primary);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  background: var(--primary);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: var(--transition);
+  margin: 0.5rem;
+  min-width: 150px;
+}
+
+.btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 7px 14px rgba(0, 0, 0, 0.1);
+}
+
+.btn:active {
+  transform: translateY(-1px);
+}
+
+.result {
+  margin-top: 1.5rem;
+  background-color: rgba(46, 204, 113, 0.1);
+  padding: 1.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+  color: var(--success);
+  border-left: 4px solid var(--success);
+  text-align: left;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.card {
+  background: var(--bg-light);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: var(--transition);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.lists {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.lists ul {
+  text-align: left;
+  padding-left: 1.5rem;
+  line-height: 1.75;
+  overflow-y: auto;
+  max-height: 200px;
+}
+
+.lists h3 {
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--primary);
+  color: var(--primary-dark);
+}
+
+/* Animation for list items */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-15px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.lists li {
+  animation: slideIn 0.3s ease-out forwards;
+  animation-delay: calc(0.05s * var(--i, 0));
+  opacity: 0;
+}
+
+button[style*="background:red"] {
+  background: var(--danger) !important;
+}
+
+button[style*="background:red"]:hover {
+  background: #c0392b !important;
+}
+  
