@@ -97,7 +97,7 @@ Student Lookup → Students can view their assigned hall/seat
 
 Invigilator View → Invigilators check assigned duties
 
-Future Enhancements
+### Future Enhancements
 
 🚀 Planned improvements:
 
@@ -117,5 +117,4 @@ Guided by Mrs. B. Sabitha (Assistant Professor, CVR College of Engineering)
 
 ⭐ If you found this project useful, please give it a star on GitHub!
 
-## Project Structure
 
