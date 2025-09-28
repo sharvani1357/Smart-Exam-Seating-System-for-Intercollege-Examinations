@@ -107,7 +107,7 @@ Invigilator View → Invigilators check assigned duties
 
 📱 Mobile-friendly responsive design
 
-Contributors
+###Contributors
 
 👩‍💻 Khushi Bung
 👩‍💻 Nikhitha Sircilla
